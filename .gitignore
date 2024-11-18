@@ -1,52 +1,48 @@
-# Prerequisites
-*.d
+#include <stdio.h>
+#include <string.h>
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+// Structure to store weather data
+struct Weather {
+    char city[50];
+    float temperature;
+    char condition[50];
+};
 
-# Linker output
-*.ilk
-*.map
-*.exp
+// Function to display weather details
+void displayWeather(struct Weather w) {
+    printf("\nWeather Report for %s:\n", w.city);
+    printf("Temperature: %.2f°C\n", w.temperature);
+    printf("Condition: %s\n", w.condition);
+}
 
-# Precompiled Headers
-*.gch
-*.pch
+// Main function
+int main() {
+    struct Weather weatherData[5] = {
+        {"New York", 22.5, "Sunny"},
+        {"London", 15.0, "Cloudy"},
+        {"Paris", 18.2, "Rainy"},
+        {"Tokyo", 25.6, "Clear"},
+        {"Mumbai", 30.3, "Humid"}
+    };
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+    char city[50];
+    int found = 0;
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+    printf("Enter the city name: ");
+    scanf("%s", city);
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+    // Search for the city in weatherData
+    for (int i = 0; i < 5; i++) {
+        if (strcmp(weatherData[i].city, city) == 0) {
+            displayWeather(weatherData[i]);
+            found = 1;
+            break;
+        }
+    }
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+    if (!found) {
+        printf("Weather data for %s not found.\n", city);
+    }
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+    return 0;
+}
